@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/player";
+
+//now we have only 1,2,5,6
+message PlayRequest{
+    int32 stationid = 1;
+}
+
+message PlayResponse{
+
+    bool success = 1;
+    
+    string stationName = 2;
+    string stationListenUrl = 3;
+    string stationDescription = 4;
+    
+    string nowplayingSongId = 5;
+    string nowplayingSongArtist = 6;
+    string nowplayingSongTitle = 7;
+    string nowplayingSongAlbum = 8;
+    string nowplayingSongGenre = 9;
+    string nowplayingSongArt = 10;
+    string nowplayingSongLyric = 11;
+
+    int32 nowplayingSongElapsed = 12;
+    int32 nowplayingSongRemaining = 13;
+
+    int32 listenersTotal = 14;
+    int32 listenersUnique = 15;
+    int32 listenersCurrent = 16;
+    
+}
+
+service Player{
+    rpc Play(PlayRequest) returns (PlayResponse);
+}

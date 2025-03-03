@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/loginer";
+
+
+message LoginRequest{
+    string mobile = 1;
+    string password = 2;
+    string otpcode = 3;
+}
+
+message LoginResponse{
+    bool success = 1;
+    string mobile = 2;
+    string token = 3;
+    string message = 4;
+}
+
+service Loginer{
+    rpc Login(LoginRequest) returns (LoginResponse);
+}

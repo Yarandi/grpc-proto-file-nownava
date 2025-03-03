@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/getstations";
+
+message getStationsRequest{
+    string token = 1;
+}
+
+
+message Station {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+    string listen_url = 4;
+    bool is_public = 5;
+}
+
+message GetStationsResponse {
+    bool success = 1;
+    repeated Station stations = 2;
+    string mobile = 3;
+    
+}
+
+service GetStations{
+    rpc GetStations(getStationsRequest) returns (GetStationsResponse);
+}

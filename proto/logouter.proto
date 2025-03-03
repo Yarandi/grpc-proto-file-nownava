@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/logouter";
+
+message LogoutRequest{
+    string token = 1;
+}
+
+message LogoutResponse{
+    bool success = 1;
+    string message = 2;
+}
+
+service Logouter{
+    rpc Logout(LogoutRequest) returns (LogoutResponse);
+}

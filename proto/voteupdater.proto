@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/voteupdater";
+
+
+message VoteupdaterRequest {
+    string songid = 1;
+    string stationid = 2;
+    string stationname = 3;
+    string text = 4;
+    string artist = 5;
+    string vote = 6;
+    string token = 7;
+    string mobile = 8;
+}
+
+message VoteupdaterResponse {
+    bool success = 1;
+    int32 total_voteups = 2;
+    int32 total_votedowns = 3;
+    string mobile = 4;
+}
+
+service Voteupdater {
+    rpc Voteupdater(VoteupdaterRequest) returns (VoteupdaterResponse);
+}

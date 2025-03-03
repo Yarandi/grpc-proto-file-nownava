@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/preauther";
+
+
+message PreauthRequest{
+    string mobile = 1;
+}
+
+message PreauthResponse{
+    bool is_registered = 1;
+    string phone_number = 2;
+}
+
+service Preauther{
+    rpc Preauth(PreauthRequest) returns (PreauthResponse);
+}

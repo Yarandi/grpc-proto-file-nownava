@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/signupper";
+
+
+message SignupRequest{
+    string mobile = 1;
+    string otpcode = 2;
+    string password = 3;
+    string confirmpassword = 4;
+
+}
+
+message SignupResponse{
+    bool success = 1;
+    string token = 2;
+    string mobile = 3;
+    string message = 4;
+}
+
+service Signupper{
+    rpc Signup(SignupRequest) returns (SignupResponse);
+}
