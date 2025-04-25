@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/profileupdater";
+
+message ProfileUpdaterRequest{
+    string mobile = 1;
+    string token = 2;
+    string first_name = 4;
+    string last_name = 5;
+}
+
+message ProfileUpdaterResponse{
+
+    bool success = 1;
+    int32 id = 2;
+    string phone_number = 3;
+    string first_name = 4;
+    string last_name = 5;
+    string message = 6;
+
+}
+
+service ProfileUpdater{
+    rpc ProfileUpdater(ProfileUpdaterRequest) returns (ProfileUpdaterResponse);
+}

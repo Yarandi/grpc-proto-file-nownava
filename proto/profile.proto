@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+//import "google/protobuf/timestamp.proto";
+option go_package = "github.com/Yarandi/radio_player_go/profile";
+
+
+message ProfileRequest{
+    string mobile = 1;
+    string token = 2;
+}
+
+message ProfileResponse{
+
+    bool success = 1;
+    int32 id = 2;
+    string phone_number = 3;
+    string first_name = 4;
+    string last_name = 5;
+    string message = 6;
+
+}
+
+service Profiler{
+    rpc Profile(ProfileRequest) returns (ProfileResponse);
+}

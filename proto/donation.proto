@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "github.com/Yarandi/radio_player_go/donationfields";
+
+
+message DonationConfigRequest{
+    string code = 1;
+}
+
+message DonationConfigResponse {
+    bool success = 1;                  
+    string donation_token = 2;         
+    string donation_goal_amount = 3;   
+    string user_donation_url = 4;      
+    string recent_donations_url = 5;   
+    string message = 6;                
+}
+
+service DonationConfig {
+    rpc GetDonationConfig (DonationConfigRequest) returns (DonationConfigResponse);
+}
