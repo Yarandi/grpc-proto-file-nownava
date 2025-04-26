@@ -33,5 +33,6 @@ message PlayResponse{
 }
 
 service Player{
-    rpc Play(PlayRequest) returns (PlayResponse);
+    rpc Play(PlayRequest) returns (stream PlayResponse);
 }
+

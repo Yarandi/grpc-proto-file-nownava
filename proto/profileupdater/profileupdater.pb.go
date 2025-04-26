@@ -22,13 +22,15 @@ const (
 )
 
 type ProfileUpdaterRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Mobile        string                 `protobuf:"bytes,1,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
-	FirstName     string                 `protobuf:"bytes,4,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName      string                 `protobuf:"bytes,5,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Mobile          string                 `protobuf:"bytes,1,opt,name=mobile,proto3" json:"mobile,omitempty"`
+	Token           string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
+	FirstName       string                 `protobuf:"bytes,4,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName        string                 `protobuf:"bytes,5,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Password        string                 `protobuf:"bytes,6,opt,name=password,proto3" json:"password,omitempty"`
+	ConfirmPassword string                 `protobuf:"bytes,7,opt,name=confirm_password,json=confirmPassword,proto3" json:"confirm_password,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *ProfileUpdaterRequest) Reset() {
@@ -85,6 +87,20 @@ func (x *ProfileUpdaterRequest) GetFirstName() string {
 func (x *ProfileUpdaterRequest) GetLastName() string {
 	if x != nil {
 		return x.LastName
+	}
+	return ""
+}
+
+func (x *ProfileUpdaterRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *ProfileUpdaterRequest) GetConfirmPassword() string {
+	if x != nil {
+		return x.ConfirmPassword
 	}
 	return ""
 }
@@ -177,13 +193,15 @@ var File_profileupdater_proto protoreflect.FileDescriptor
 
 const file_profileupdater_proto_rawDesc = "" +
 	"\n" +
-	"\x14profileupdater.proto\"\x81\x01\n" +
+	"\x14profileupdater.proto\"\xc8\x01\n" +
 	"\x15ProfileUpdaterRequest\x12\x16\n" +
 	"\x06mobile\x18\x01 \x01(\tR\x06mobile\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x04 \x01(\tR\tfirstName\x12\x1b\n" +
-	"\tlast_name\x18\x05 \x01(\tR\blastName\"\xbb\x01\n" +
+	"\tlast_name\x18\x05 \x01(\tR\blastName\x12\x1a\n" +
+	"\bpassword\x18\x06 \x01(\tR\bpassword\x12)\n" +
+	"\x10confirm_password\x18\a \x01(\tR\x0fconfirmPassword\"\xbb\x01\n" +
 	"\x16ProfileUpdaterResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x0e\n" +
 	"\x02id\x18\x02 \x01(\x05R\x02id\x12!\n" +

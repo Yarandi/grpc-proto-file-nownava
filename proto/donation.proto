@@ -11,9 +11,9 @@ message DonationConfigResponse {
     bool success = 1;  
     string donation_url = 2;                
     string donation_token = 3;         
-    string donation_goal_amount = 4;   
-    string user_donation_url = 5;      
-    string recent_donations_url = 6;   
+    string goal_donation = 4;   
+    string user_donation = 5;      
+    string recent_donations = 6;   
     string message = 7;                
 }
 

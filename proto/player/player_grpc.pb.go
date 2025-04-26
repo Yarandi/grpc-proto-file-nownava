@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PlayerClient interface {
-	Play(ctx context.Context, in *PlayRequest, opts ...grpc.CallOption) (*PlayResponse, error)
+	Play(ctx context.Context, in *PlayRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[PlayResponse], error)
 }
 
 type playerClient struct {
@@ -37,21 +37,30 @@ func NewPlayerClient(cc grpc.ClientConnInterface) PlayerClient {
 	return &playerClient{cc}
 }
 
-func (c *playerClient) Play(ctx context.Context, in *PlayRequest, opts ...grpc.CallOption) (*PlayResponse, error) {
+func (c *playerClient) Play(ctx context.Context, in *PlayRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[PlayResponse], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PlayResponse)
-	err := c.cc.Invoke(ctx, Player_Play_FullMethodName, in, out, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &Player_ServiceDesc.Streams[0], Player_Play_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &grpc.GenericClientStream[PlayRequest, PlayResponse]{ClientStream: stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
 }
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Player_PlayClient = grpc.ServerStreamingClient[PlayResponse]
 
 // PlayerServer is the server API for Player service.
 // All implementations must embed UnimplementedPlayerServer
 // for forward compatibility.
 type PlayerServer interface {
-	Play(context.Context, *PlayRequest) (*PlayResponse, error)
+	Play(*PlayRequest, grpc.ServerStreamingServer[PlayResponse]) error
 	mustEmbedUnimplementedPlayerServer()
 }
 
@@ -62,8 +71,8 @@ type PlayerServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPlayerServer struct{}
 
-func (UnimplementedPlayerServer) Play(context.Context, *PlayRequest) (*PlayResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Play not implemented")
+func (UnimplementedPlayerServer) Play(*PlayRequest, grpc.ServerStreamingServer[PlayResponse]) error {
+	return status.Errorf(codes.Unimplemented, "method Play not implemented")
 }
 func (UnimplementedPlayerServer) mustEmbedUnimplementedPlayerServer() {}
 func (UnimplementedPlayerServer) testEmbeddedByValue()                {}
@@ -86,23 +95,16 @@ func RegisterPlayerServer(s grpc.ServiceRegistrar, srv PlayerServer) {
 	s.RegisterService(&Player_ServiceDesc, srv)
 }
 
-func _Player_Play_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PlayRequest)
-	if err := dec(in); err != nil {
-		return nil, err
+func _Player_Play_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(PlayRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(PlayerServer).Play(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Player_Play_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerServer).Play(ctx, req.(*PlayRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(PlayerServer).Play(m, &grpc.GenericServerStream[PlayRequest, PlayResponse]{ServerStream: stream})
 }
+
+// This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
+type Player_PlayServer = grpc.ServerStreamingServer[PlayResponse]
 
 // Player_ServiceDesc is the grpc.ServiceDesc for Player service.
 // It's only intended for direct use with grpc.RegisterService,
@@ -110,12 +112,13 @@ func _Player_Play_Handler(srv interface{}, ctx context.Context, dec func(interfa
 var Player_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "Player",
 	HandlerType: (*PlayerServer)(nil),
-	Methods: []grpc.MethodDesc{
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "Play",
-			Handler:    _Player_Play_Handler,
+			StreamName:    "Play",
+			Handler:       _Player_Play_Handler,
+			ServerStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "player.proto",
 }

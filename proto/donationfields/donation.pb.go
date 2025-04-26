@@ -66,16 +66,16 @@ func (x *DonationConfigRequest) GetCode() string {
 }
 
 type DonationConfigResponse struct {
-	state              protoimpl.MessageState `protogen:"open.v1"`
-	Success            bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	DonationUrl        string                 `protobuf:"bytes,2,opt,name=donation_url,json=donationUrl,proto3" json:"donation_url,omitempty"`
-	DonationToken      string                 `protobuf:"bytes,3,opt,name=donation_token,json=donationToken,proto3" json:"donation_token,omitempty"`
-	DonationGoalAmount string                 `protobuf:"bytes,4,opt,name=donation_goal_amount,json=donationGoalAmount,proto3" json:"donation_goal_amount,omitempty"`
-	UserDonationUrl    string                 `protobuf:"bytes,5,opt,name=user_donation_url,json=userDonationUrl,proto3" json:"user_donation_url,omitempty"`
-	RecentDonationsUrl string                 `protobuf:"bytes,6,opt,name=recent_donations_url,json=recentDonationsUrl,proto3" json:"recent_donations_url,omitempty"`
-	Message            string                 `protobuf:"bytes,7,opt,name=message,proto3" json:"message,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Success         bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	DonationUrl     string                 `protobuf:"bytes,2,opt,name=donation_url,json=donationUrl,proto3" json:"donation_url,omitempty"`
+	DonationToken   string                 `protobuf:"bytes,3,opt,name=donation_token,json=donationToken,proto3" json:"donation_token,omitempty"`
+	GoalDonation    string                 `protobuf:"bytes,4,opt,name=goal_donation,json=goalDonation,proto3" json:"goal_donation,omitempty"`
+	UserDonation    string                 `protobuf:"bytes,5,opt,name=user_donation,json=userDonation,proto3" json:"user_donation,omitempty"`
+	RecentDonations string                 `protobuf:"bytes,6,opt,name=recent_donations,json=recentDonations,proto3" json:"recent_donations,omitempty"`
+	Message         string                 `protobuf:"bytes,7,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *DonationConfigResponse) Reset() {
@@ -129,23 +129,23 @@ func (x *DonationConfigResponse) GetDonationToken() string {
 	return ""
 }
 
-func (x *DonationConfigResponse) GetDonationGoalAmount() string {
+func (x *DonationConfigResponse) GetGoalDonation() string {
 	if x != nil {
-		return x.DonationGoalAmount
+		return x.GoalDonation
 	}
 	return ""
 }
 
-func (x *DonationConfigResponse) GetUserDonationUrl() string {
+func (x *DonationConfigResponse) GetUserDonation() string {
 	if x != nil {
-		return x.UserDonationUrl
+		return x.UserDonation
 	}
 	return ""
 }
 
-func (x *DonationConfigResponse) GetRecentDonationsUrl() string {
+func (x *DonationConfigResponse) GetRecentDonations() string {
 	if x != nil {
-		return x.RecentDonationsUrl
+		return x.RecentDonations
 	}
 	return ""
 }
@@ -163,14 +163,14 @@ const file_donation_proto_rawDesc = "" +
 	"\n" +
 	"\x0edonation.proto\"+\n" +
 	"\x15DonationConfigRequest\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\tR\x04code\"\xa6\x02\n" +
+	"\x04code\x18\x01 \x01(\tR\x04code\"\x8b\x02\n" +
 	"\x16DonationConfigResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12!\n" +
 	"\fdonation_url\x18\x02 \x01(\tR\vdonationUrl\x12%\n" +
-	"\x0edonation_token\x18\x03 \x01(\tR\rdonationToken\x120\n" +
-	"\x14donation_goal_amount\x18\x04 \x01(\tR\x12donationGoalAmount\x12*\n" +
-	"\x11user_donation_url\x18\x05 \x01(\tR\x0fuserDonationUrl\x120\n" +
-	"\x14recent_donations_url\x18\x06 \x01(\tR\x12recentDonationsUrl\x12\x18\n" +
+	"\x0edonation_token\x18\x03 \x01(\tR\rdonationToken\x12#\n" +
+	"\rgoal_donation\x18\x04 \x01(\tR\fgoalDonation\x12#\n" +
+	"\ruser_donation\x18\x05 \x01(\tR\fuserDonation\x12)\n" +
+	"\x10recent_donations\x18\x06 \x01(\tR\x0frecentDonations\x12\x18\n" +
 	"\amessage\x18\a \x01(\tR\amessage2V\n" +
 	"\x0eDonationConfig\x12D\n" +
 	"\x11GetDonationConfig\x12\x16.DonationConfigRequest\x1a\x17.DonationConfigResponseB3Z1github.com/Yarandi/radio_player_go/donationfieldsb\x06proto3"

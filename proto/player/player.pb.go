@@ -254,9 +254,9 @@ const file_player_proto_rawDesc = "" +
 	"\x17nowplayingSongRemaining\x18\r \x01(\x05R\x17nowplayingSongRemaining\x12&\n" +
 	"\x0elistenersTotal\x18\x0e \x01(\x05R\x0elistenersTotal\x12(\n" +
 	"\x0flistenersUnique\x18\x0f \x01(\x05R\x0flistenersUnique\x12*\n" +
-	"\x10listenersCurrent\x18\x10 \x01(\x05R\x10listenersCurrent2-\n" +
-	"\x06Player\x12#\n" +
-	"\x04Play\x12\f.PlayRequest\x1a\r.PlayResponseB+Z)github.com/Yarandi/radio_player_go/playerb\x06proto3"
+	"\x10listenersCurrent\x18\x10 \x01(\x05R\x10listenersCurrent2/\n" +
+	"\x06Player\x12%\n" +
+	"\x04Play\x12\f.PlayRequest\x1a\r.PlayResponse0\x01B+Z)github.com/Yarandi/radio_player_go/playerb\x06proto3"
 
 var (
 	file_player_proto_rawDescOnce sync.Once

@@ -7,6 +7,8 @@ message ProfileUpdaterRequest{
     string token = 2;
     string first_name = 4;
     string last_name = 5;
+    string password = 6;
+    string confirm_password = 7;
 }
 
 message ProfileUpdaterResponse{
