@@ -6,13 +6,13 @@ message getStationsRequest{
     string token = 1;
 }
 
-
 message Station {
     int32 id = 1;
     string name = 2;
     string description = 3;
     string listen_url = 4;
     bool is_public = 5;
+    string cover = 6;
 }
 
 message GetStationsResponse {

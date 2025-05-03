@@ -6,8 +6,6 @@ option go_package = "github.com/Yarandi/radio_player_go/signupper";
 message SignupRequest{
     string mobile = 1;
     string otpcode = 2;
-    string password = 3;
-    string confirmpassword = 4;
 
 }
 
